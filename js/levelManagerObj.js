@@ -32,9 +32,10 @@ const level3 = {
   keyTiles: [
     { id: 1, quantity: 2, unlock: 9 },
     { id: 2, quantity: 2, unlock: 9 },
-    { id: 3, quantity: 2, unlock: 18 },
-    { id: 4, quantity: 2, unlock: 9 },
+    { id: 3, quantity: 4, unlock: 9 },
+    { id: 4, quantity: 4, unlock: 9 },
     { id: 5, quantity: 2, unlock: 9 },
+    { id: 6, quantity: 2, unlock: 9 },
   ],
   lockedTiles: [
     // walls: [
@@ -101,8 +102,8 @@ const level3 = {
 const level4 = {
   id: 4,
   name: "Trưởng Thành",
-  rows: 2,
-  cols: 4,
+  rows: 9,
+  cols: 16,
 };
 const level5 = {
   id: 5,
@@ -116,9 +117,9 @@ const level6 = {
   rows: 2,
   cols: 4,
 };
-console.log(level2.walls);
-console.log(level2.walls[0].row);
-console.log(level2.walls.length);
+// console.log(level2.walls);
+// console.log(level2.walls[0].row);
+// console.log(level2.walls.length);
 
 export class LevelManager {
   constructor() {

@@ -52,6 +52,35 @@
 .locked {
   background-color: rgba(58, 52, 52, 0.776);
 }
+.skills {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-skill {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: bisque;
+  border-radius: 15px;
+}
+#fire {
+  background-color: red;
+}
+#water {
+  background-color: blue;
+}
+#plant {
+  background-color: greenyellow;
+}
+#earth {
+  background-color: brown;
+}
 
 .special.angel {
   position: relative;

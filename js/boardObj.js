@@ -395,7 +395,7 @@ export class Board {
       }
     }
 
-    console.log(this.matrix);
+    // console.log(this.matrix);
   }
   countRemainingTiles() {
     let count = 0;

@@ -47,6 +47,7 @@ export class Renderer {
       if (board.matrix[r][c] === "") {
         tile.classList.add("matched", "hind");
       }
+
       tile.classList.remove("special");
       tile.classList.remove("angel");
     }
@@ -93,6 +94,18 @@ export class Renderer {
       // console.log(tile);
       tile.classList.add("special");
       tile.classList.add("angel");
+    }
+  }
+  removeLock(array) {
+    if (!array) return;
+    console.log(array);
+    for (let i = 0; i < array.length; i++) {
+      const tile = this.boardElement.querySelector(
+        `.tile[data-row="${array[i].row}"][data-col="${array[i].col}"]`,
+      );
+      // console.log(tile);
+      tile.classList.remove("locked");
+      tile.classList.add("unlock");
     }
   }
 }

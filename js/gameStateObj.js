@@ -4,7 +4,7 @@ export class GameState {
     this.selectedTile = null; //  element, row, col
     this.score = 0;
     this.score1Pair = 100;
-    this.iconsCount = 36;
+    this.iconsCount = 12;
     this.remainingTiles = 0;
     this.specNum = null;
     this.specialTilesForConditionWin = null;

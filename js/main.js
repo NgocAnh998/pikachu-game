@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderer = new Renderer(boardDOM);
   board.init();
   boardDOM.style.gridTemplateColumns = `repeat(${currentLevel.cols},40px)`;
-  console.log(board.matrix);
+  // console.log(board.matrix);
   renderer.renderBoard(board, (tile, r, c) => {
     handleTileClick(tile, r, c, board, gameState, renderer, score);
 
@@ -62,8 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
     gameState.updateSpecialTilesForConditionWin(
       board.countSpecialTileForWin(currentLevel.specNum),
     );
+
     //level 3
-    openLockedTiles(board, gameState, currentLevel);
+    let unlockResult = openLockedTiles(board, gameState, currentLevel);
+    renderer.removeLock(unlockResult);
     // Nếu không còn bất cứ nước đi nào thì trộn
     const hintPair = help(board);
     if (hintPair == null) {

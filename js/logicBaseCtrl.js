@@ -117,7 +117,7 @@ export function help(board) {
   }
 
   for (let i = 0; i < activeTiles.length; i++) {
-    for (let j = 0; j < activeTiles.length; j++) {
+    for (let j = i + 1; j < activeTiles.length; j++) {
       let tileA = activeTiles[i];
       let tileB = activeTiles[j];
 
@@ -153,6 +153,7 @@ export function getLocationMatrix(board, num) {
 
 export function openLockedTiles(board, gameState, level) {
   let unlockKeyTiles = board.unlockKeyTiles();
+  let unlockResult = [];
 
   if (unlockKeyTiles.length === 0) {
     return;
@@ -175,11 +176,11 @@ export function openLockedTiles(board, gameState, level) {
       let lockLocation = level.lockedTiles || [];
       let from = 9 * (unlockQuantity - 1);
       let to = 9 * unlockQuantity;
-      console.log(from);
-      console.log(to);
+      // console.log(from);
+      // console.log(to);
       // console.log("lockLocation: " + lockLocation);
       // console.log(lockLocation[0]);
-      for (let x = from; x < to && x < lockLocation.length; i++) {
+      for (let x = from; x < to && x < lockLocation.length; x++) {
         let r = lockLocation[x].row;
         let c = lockLocation[x].col;
         console.log("r: " + r + " c: " + c);
@@ -189,8 +190,9 @@ export function openLockedTiles(board, gameState, level) {
         ) {
           gameState.unlockTiles.push({ row: r, col: c });
           board.matrix[r][c].state = "unlock";
-          console.log(board.matrix[r][c]);
-          console.log(unlockQuantity);
+          unlockResult.push({ row: r, col: c });
+          // console.log(board.matrix[r][c]);
+          // console.log(unlockQuantity);
         }
       }
       // for (let r = 1; r <= board.rows; r++) {
@@ -217,4 +219,5 @@ export function openLockedTiles(board, gameState, level) {
       // }
     }
   }
+  return unlockResult;
 }

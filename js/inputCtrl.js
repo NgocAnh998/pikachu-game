@@ -25,6 +25,7 @@ export function handleTileClick(tile, r, c, board, gameState, renderer, score) {
     // console.log(success);
     if (success) {
       renderer.markMatched(firstTile, tile);
+
       gameState.selectedTile = null;
       // Thêm điểm khi ăn 1 cặp
       gameState.addScore();
