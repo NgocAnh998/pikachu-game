@@ -1,0 +1,154 @@
+* {
+  background-color: rgb(167, 101, 2);
+}
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#game-board {
+  display: grid;
+  /* grid-template-columns: repeat(10, 60px); */
+  gap: 5px;
+}
+
+.tile {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: bisque;
+  border-radius: 15px;
+  /* transition: all 0.2s ease; */
+}
+.wall {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgb(24, 24, 23);
+  border-radius: 15px;
+}
+.selected {
+  /* border: 1px solid #2196f3; */
+  background-color: blueviolet;
+  /* transform: scale(1.05); */
+}
+.hind {
+  background-color: white;
+  color: white;
+  /* Ẩn luôn đi không cho select */
+  visibility: hidden;
+}
+
+.hint {
+  background-color: aqua;
+}
+
+.locked {
+  background-color: rgba(58, 52, 52, 0.776);
+}
+
+.special.angel {
+  position: relative;
+  overflow: hidden;
+  /* 1. Dải màu Cầu Vồng 7 sắc rực rỡ tươi sáng */
+  background: linear-gradient(
+    124deg,
+    #ff2400,
+    /* Đỏ */ #e81d1d,
+    /* Cam Đỏ */ #e8b71d,
+    /* Vàng */ #1de840,
+    /* Lục */ #1ddde8,
+    /* Lam */ #2b1de8,
+    /* Chàm */ #dd1de8 /* Tím */
+  );
+  background-size: 400% 400%;
+  animation: rainbowShift 6s ease-in-out infinite alternate;
+  box-shadow:
+    0 0 50px rgba(255, 255, 255, 0.9) inset,
+    0 0 30px rgba(255, 215, 0, 0.6);
+}
+
+/* 2. Lớp ánh sáng trắng & kim tuyến thiên thần phủ lên trên để làm dịu và tạo độ lấp lánh */
+.special.angel::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.3) 30%,
+    rgba(255, 215, 0, 0.15) 55%,
+    transparent 75%
+  );
+  animation: holyPulse 3.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  mix-blend-mode: overlay; /* Hòa trộn ánh sáng giúp dải màu rực rỡ hơn */
+}
+
+/* 3. Lớp quầng sáng cầu vồng xoay nhẹ */
+.special.angel::after {
+  content: "";
+  position: absolute;
+  inset: -100px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 0, 0, 0.3),
+    rgba(255, 154, 0, 0.3),
+    rgba(208, 222, 33, 0.3),
+    rgba(79, 220, 74, 0.3),
+    rgba(63, 218, 216, 0.3),
+    rgba(47, 201, 226, 0.3),
+    rgba(28, 127, 238, 0.3),
+    rgba(95, 21, 242, 0.3),
+    rgba(186, 12, 248, 0.3),
+    rgba(251, 7, 217, 0.3),
+    rgba(255, 0, 0, 0.3)
+  );
+  animation: rainbowSpin 2s linear infinite;
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+/* Chuyển động lướt qua 7 màu cầu vồng */
+@keyframes rainbowShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Nhịp thở hào quang thiên thần */
+@keyframes holyPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Xoay dải quang phổ 360 độ */
+@keyframes rainbowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
