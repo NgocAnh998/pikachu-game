@@ -84,6 +84,9 @@ export function kiemTraKetLoi(tile1, tile2, board) {
   const p1 = { row: tile1.dataset.row, col: tile1.dataset.col };
   const p2 = { row: tile2.dataset.row, col: tile2.dataset.col };
 
+  const tileA = board.matrix[p1.row][p1.col];
+  const tileB = board.matrix[p2.row][p2.col];
+
   const isMatched = checkPathBFS(
     p1,
     p2,
@@ -91,8 +94,131 @@ export function kiemTraKetLoi(tile1, tile2, board) {
     board.realRows,
     board.realCols,
   );
-  console.log(isMatched);
+  // console.log(isMatched);
   if (isMatched) {
+    board.eatenTiles.push(board.matrix[p1.row][p1.col]);
+    board.eatenTiles.push(board.matrix[p2.row][p2.col]);
+
+    // Xóa dữ liệu trong mảng dưa liẹu
+    board.matrix[p1.row][p1.col] = "";
+    board.matrix[p2.row][p2.col] = "";
+    return true;
+  }
+
+  return false;
+}
+export function kiemTraKetLoiLv4(tile1, tile2, board, gameState) {
+  const p1 = { row: tile1.dataset.row, col: tile1.dataset.col };
+  const p2 = { row: tile2.dataset.row, col: tile2.dataset.col };
+
+  const tileA = board.matrix[p1.row][p1.col];
+  const tileB = board.matrix[p2.row][p2.col];
+
+  if (gameState.hasBall < 0) {
+    return false;
+  }
+  const element = tileA.element;
+  // const elementB = tileB.element;
+  const isMatched = checkPathBFS(
+    p1,
+    p2,
+    board.matrix,
+    board.realRows,
+    board.realCols,
+  );
+  let removetile = false;
+  if (tileA.id === tileB.id && isMatched) {
+    switch (element) {
+      case "fire":
+        if (gameState.hasBall > 0) {
+          gameState.hasBall--;
+          gameState.updateElementCount(
+            "fire",
+            gameState.getElementCount("fire") + 1,
+          );
+          console.log("Da cap nhap file" + gameState.hasElement[0].element);
+          removetile = true;
+        } else if (gameState.getElementCount("water") > 0) {
+          gameState.updateElementCount(
+            "water",
+            gameState.getElementCount("water") - 1,
+          );
+          gameState.updateElementCount(
+            "fire",
+            gameState.getElementCount("fire") + 1,
+          );
+          removetile = true;
+        }
+        break;
+      case "water":
+        if (gameState.hasBall > 0) {
+          gameState.hasBall--;
+          gameState.updateElementCount(
+            "water",
+            gameState.getElementCount("water") + 1,
+          );
+          removetile = true;
+        } else if (gameState.getElementCount("earth") > 0) {
+          gameState.updateElementCount(
+            "water",
+            gameState.getElementCount("water") + 1,
+          );
+          gameState.updateElementCount(
+            "earth",
+            gameState.getElementCount("earth") - 1,
+          );
+          removetile = true;
+        }
+        break;
+      case "plant":
+        if (gameState.hasBall > 0) {
+          gameState.hasBall--;
+          gameState.updateElementCount(
+            "plant",
+            gameState.getElementCount("plant") + 1,
+          );
+          removetile = true;
+        } else if (gameState.getElementCount("fire") > 0) {
+          gameState.updateElementCount(
+            "fire",
+            gameState.getElementCount("fire") - 1,
+          );
+          gameState.updateElementCount(
+            "plant",
+            gameState.getElementCount("plant") + 1,
+          );
+          removetile = true;
+        }
+        break;
+      case "earth":
+        if (gameState.hasBall > 0) {
+          gameState.hasBall--;
+          gameState.updateElementCount(
+            "earth",
+            gameState.getElementCount("earth") + 1,
+          );
+          removetile = true;
+        } else if (gameState.getElementCount("plant") > 0) {
+          gameState.updateElementCount(
+            "plant",
+            gameState.getElementCount("plant") - 1,
+          );
+          gameState.updateElementCount(
+            "earth",
+            gameState.getElementCount("earth") + 1,
+          );
+          removetile = true;
+        }
+        break;
+      case "normal":
+        removetile = true;
+        break;
+      // Thêm các trường hợp khác nếu cần
+    }
+  }
+
+  // console.log(isMatched);
+  if (isMatched && removetile) {
     board.eatenTiles.push(board.matrix[p1.row][p1.col]);
     board.eatenTiles.push(board.matrix[p2.row][p2.col]);
 

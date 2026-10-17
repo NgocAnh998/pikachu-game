@@ -7,7 +7,8 @@ import { help } from "./logicBaseCtrl.js";
 import { checkWin } from "./logicLevelCtrl.js";
 import { getLocationMatrix } from "./logicBaseCtrl.js";
 import { openLockedTiles } from "./logicBaseCtrl.js";
-
+// import { initElementForLevel4 } from "./logicLevelCtrl.js";
+import { kiemTraKetLoiLv4 } from "./logicBaseCtrl.js";
 document.addEventListener("DOMContentLoaded", () => {
   const boardDOM = document.querySelector("#game-board");
   const refreshBtn = document.querySelector("#btn-refresh");
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gameState.updateRemainingTiles(currentLevel.cols * currentLevel.rows);
   gameState.updateSpecNum(currentLevel.specNum);
   gameState.updateLevel(currentLevel);
+  gameState.initElementCount(currentLevel);
   // console.log(gameState);
 
   // Khởi tạo bàn cờ
@@ -50,6 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const renderer = new Renderer(boardDOM);
   board.init();
+  //level 4 khởi tạo những element pokemon đặc biệt
+  if (currentLevel.id === 4) {
+    // board.initElementForLevel4(currentLevel);
+    renderer.updateElementCount(gameState);
+  }
   boardDOM.style.gridTemplateColumns = `repeat(${currentLevel.cols},40px)`;
   // console.log(board.matrix);
   renderer.renderBoard(board, (tile, r, c) => {
@@ -66,6 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //level 3
     let unlockResult = openLockedTiles(board, gameState, currentLevel);
     renderer.removeLock(unlockResult);
+    //level 4
+    // countElementForLevel4(board, currentLevel);
+    renderer.updateElementCount(gameState);
+
     // Nếu không còn bất cứ nước đi nào thì trộn
     const hintPair = help(board);
     if (hintPair == null) {
@@ -85,6 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (currentLevel.specNum) {
     // console.log(getLocationMatrix(board, gameState.specNum));
     renderer.specialTiles(getLocationMatrix(board, gameState.specNum));
+  }
+  if (currentLevel.id === 4) {
+    renderer.elementTiles(board);
   }
 
   // console.log(board);
@@ -189,6 +203,9 @@ function refresh(board, renderer, gameState) {
   board.refreshBoard(gameState);
   renderer.updateBoardValues(board);
   renderer.specialTiles(getLocationMatrix(board, gameState.specNum));
+  if (gameState.level.id === 4) {
+    renderer.elementTiles(board);
+  }
 }
 
 // let ROWS = 8;

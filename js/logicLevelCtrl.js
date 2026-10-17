@@ -19,9 +19,22 @@ export function checkWin(level, gameState) {
         alert("Bạn đã win màn 3");
       }
       break;
+    case 4:
+      // console.log(gameState.specialTilesForConditionWin);
+      if (gameState.remainingTiles == 0) {
+        alert("Bạn đã win màn 4");
+      }
+      break;
     // default:
     //   // Code chạy khi không trùng với case nào ở trên
     //   break;
   }
   //   console.log("Bạn đã win");
+}
+export function countElementForLevel4(board, level, gameState) {
+  const elementTypes = level.elementTypes;
+  const elementTileCounts = level.elementTileCounts;
+  let eatenTiles = board.getEatenTiles();
+
+  // const specialTiles = [];
 }

@@ -1,257 +1,268 @@
-const pokemonDefinitions = {
-  pikachu: {
+const pokemonDefinitions = [
+  // --- CHU KỲ 1 (ID 1 - 6) ---
+  {
     type: "pokemon",
     id: 1,
     name: "Pikachu",
     image: "type1.png",
-    element: "electric",
+    element: "normal",
   },
-  charmander: {
+  {
     type: "pokemon",
     id: 2,
     name: "Charmander",
     image: "type2.png",
-    element: "fire",
+    element: "normal",
   },
-  squirtle: {
+  {
     type: "pokemon",
     id: 3,
     name: "Squirtle",
     image: "type3.png",
-    element: "water",
+    element: "fire",
   },
-  bulbasaur: {
+  {
     type: "pokemon",
     id: 4,
     name: "Bulbasaur",
     image: "type4.png",
-    element: "grass",
+    element: "water",
   },
-  eevee: {
+  {
     type: "pokemon",
     id: 5,
     name: "Eevee",
     image: "type5.png",
-    element: "normal",
+    element: "plant",
   },
-  jigglypuff: {
+  {
     type: "pokemon",
     id: 6,
     name: "Jigglypuff",
     image: "type6.png",
-    element: "fairy",
+    element: "earth",
   },
-  meowth: {
+
+  // --- CHU KỲ 2 (ID 7 - 12) ---
+  {
     type: "pokemon",
     id: 7,
     name: "Meowth",
     image: "type7.png",
     element: "normal",
   },
-  psyduck: {
+  {
     type: "pokemon",
     id: 8,
     name: "Psyduck",
     image: "type8.png",
-    element: "water",
+    element: "normal",
   },
-  snorlax: {
+  {
     type: "pokemon",
     id: 9,
     name: "Snorlax",
     image: "type9.png",
-    element: "normal",
+    element: "fire",
   },
-  gengar: {
+  {
     type: "pokemon",
     id: 10,
     name: "Gengar",
     image: "type10.png",
-    element: "ghost",
+    element: "water",
   },
-  mewtwo: {
+  {
     type: "pokemon",
     id: 11,
     name: "Mewtwo",
     image: "type11.png",
-    element: "psychic",
+    element: "plant",
   },
-  gyarados: {
+  {
     type: "pokemon",
     id: 12,
     name: "Gyarados",
     image: "type12.png",
-    element: "water",
+    element: "earth",
   },
-  dragonite: {
+
+  // --- CHU KỲ 3 (ID 13 - 18) ---
+  {
     type: "pokemon",
     id: 13,
     name: "Dragonite",
     image: "type13.png",
-    element: "dragon",
+    element: "normal",
   },
-  lucario: {
+  {
     type: "pokemon",
     id: 14,
     name: "Lucario",
     image: "type14.png",
-    element: "fighting",
+    element: "normal",
   },
-  gardevoir: {
+  {
     type: "pokemon",
     id: 15,
     name: "Gardevoir",
     image: "type15.png",
-    element: "psychic",
+    element: "fire",
   },
-  charizard: {
+  {
     type: "pokemon",
     id: 16,
     name: "Charizard",
     image: "type16.png",
-    element: "fire",
+    element: "water",
   },
-  blastoise: {
+  {
     type: "pokemon",
     id: 17,
     name: "Blastoise",
     image: "type17.png",
-    element: "water",
+    element: "plant",
   },
-  venusaur: {
+  {
     type: "pokemon",
     id: 18,
     name: "Venusaur",
     image: "type18.png",
-    element: "grass",
+    element: "earth",
   },
-  machamp: {
+
+  // --- CHU KỲ 4 (ID 19 - 24) ---
+  {
     type: "pokemon",
     id: 19,
     name: "Machamp",
     image: "type19.png",
-    element: "fighting",
+    element: "normal",
   },
-  alakazam: {
+  {
     type: "pokemon",
     id: 20,
     name: "Alakazam",
     image: "type20.png",
-    element: "psychic",
+    element: "normal",
   },
-  haunter: {
+  {
     type: "pokemon",
     id: 21,
     name: "Haunter",
     image: "type21.png",
-    element: "ghost",
+    element: "fire",
   },
-  onix: {
+  {
     type: "pokemon",
     id: 22,
     name: "Onix",
     image: "type22.png",
-    element: "rock",
+    element: "water",
   },
-  lapras: {
+  {
     type: "pokemon",
     id: 23,
     name: "Lapras",
     image: "type23.png",
-    element: "water",
+    element: "plant",
   },
-  vaporeon: {
+  {
     type: "pokemon",
     id: 24,
     name: "Vaporeon",
     image: "type24.png",
-    element: "water",
+    element: "earth",
   },
-  jolteon: {
+
+  // --- CHU KỲ 5 (ID 25 - 30) ---
+  {
     type: "pokemon",
     id: 25,
     name: "Jolteon",
     image: "type25.png",
-    element: "electric",
+    element: "normal",
   },
-  flareon: {
+  {
     type: "pokemon",
     id: 26,
     name: "Flareon",
     image: "type26.png",
-    element: "fire",
+    element: "normal",
   },
-  espeon: {
+  {
     type: "pokemon",
     id: 27,
     name: "Espeon",
     image: "type27.png",
-    element: "psychic",
+    element: "fire",
   },
-  umbreon: {
+  {
     type: "pokemon",
     id: 28,
     name: "Umbreon",
     image: "type28.png",
-    element: "dark",
+    element: "water",
   },
-  tyranitar: {
+  {
     type: "pokemon",
     id: 29,
     name: "Tyranitar",
     image: "type29.png",
-    element: "rock",
+    element: "plant",
   },
-  salamence: {
+  {
     type: "pokemon",
     id: 30,
     name: "Salamence",
     image: "type30.png",
-    element: "dragon",
+    element: "earth",
   },
-  metagross: {
+
+  // --- CHU KỲ 6 (ID 31 - 36) ---
+  {
     type: "pokemon",
     id: 31,
     name: "Metagross",
     image: "type31.png",
-    element: "steel",
+    element: "normal",
   },
-  rayquaza: {
+  {
     type: "pokemon",
     id: 32,
     name: "Rayquaza",
     image: "type32.png",
-    element: "dragon",
+    element: "normal",
   },
-  garchomp: {
+  {
     type: "pokemon",
     id: 33,
     name: "Garchomp",
     image: "type33.png",
-    element: "dragon",
+    element: "fire",
   },
-  greninja: {
+  {
     type: "pokemon",
     id: 34,
     name: "Greninja",
     image: "type34.png",
     element: "water",
   },
-  sylveon: {
+  {
     type: "pokemon",
     id: 35,
     name: "Sylveon",
     image: "type35.png",
-    element: "fairy",
+    element: "plant",
   },
-  mimikyu: {
+  {
     type: "pokemon",
     id: 36,
     name: "Mimikyu",
     image: "type36.png",
-    element: "ghost",
+    element: "earth",
   },
-};
+];
 
 // const pokemonTile = {
 //   type: "pokemon",
@@ -293,10 +304,25 @@ export class Board {
       let iconId = (i % this.iconsCount) + 1;
 
       tilesOD.push(
-        { type: "pokemon", id: iconId, state: "unlock" },
-        { type: "pokemon", id: iconId, state: "unlock" },
+        {
+          type: "pokemon",
+          id: iconId,
+          state: "unlock",
+          element: pokemonDefinitions[iconId]?.element || "normal",
+        },
+        {
+          type: "pokemon",
+          id: iconId,
+          state: "unlock",
+          element: pokemonDefinitions[iconId]?.element || "normal",
+        },
       );
     }
+    // console.log(pokemonDefinitions);
+    // console.log(pokemonDefinitions[0]);
+    // console.log(pokemonDefinitions[0]?.element);
+
+    // console.log(tilesOD);
 
     // Hàm xáo trộn cho mảng 1D
     this.shuffle(tilesOD);
@@ -465,7 +491,7 @@ export class Board {
       }
     }
 
-    console.log("unlockKeyTiles:", unlockKeyTiles);
+    // console.log("unlockKeyTiles:", unlockKeyTiles);
 
     return unlockKeyTiles;
   }
@@ -476,5 +502,9 @@ export class Board {
       }
     }
     return false;
+  }
+
+  getEatenTiles() {
+    return this.eatenTiles;
   }
 }

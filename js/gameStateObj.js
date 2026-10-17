@@ -11,6 +11,8 @@ export class GameState {
     this.unlockKeyTiles = [];
     this.unlockTiles = [];
     this.level = null;
+    this.hasElement = [];
+    this.hasBall = 0;
   }
 
   resetSelection() {
@@ -33,5 +35,38 @@ export class GameState {
   }
   updateLevel(level) {
     this.level = level;
+  }
+  initElementCount(level) {
+    const elementTypes = level.elemntTypes || [];
+    for (let i = 0; i < elementTypes.length; i++) {
+      this.hasElement.push({ element: elementTypes[i], count: 0 });
+    }
+    this.hasBall = level.ballCount || 0;
+    // console.log(this.hasElement);
+  }
+  getElementCount(elementType) {
+    for (let i = 0; i < this.hasElement.length; i++) {
+      if (this.hasElement[i].element === elementType) {
+        console.log(
+          "Gia tri cua " + elementType + ": " + this.hasElement[i].count,
+        );
+        return this.hasElement[i].count;
+      }
+    }
+    return 0;
+  }
+  updateElementCount(elementType, count) {
+    for (let i = 0; i < this.hasElement.length; i++) {
+      if (this.hasElement[i].element === elementType) {
+        this.hasElement[i].count = count;
+        return;
+      }
+    }
+  }
+  getAllElementCounts() {
+    return this.hasElement.map((el) => ({
+      element: el.element,
+      count: el.count,
+    }));
   }
 }

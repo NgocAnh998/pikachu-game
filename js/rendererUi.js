@@ -17,6 +17,7 @@ export class Renderer {
           if (cell?.state === "locked") {
             tile.classList.add("locked");
           }
+
           tile.textContent = board.matrix[r][c].id;
           tile.dataset.row = r;
           tile.dataset.col = c;
@@ -48,6 +49,7 @@ export class Renderer {
         tile.classList.add("matched", "hind");
       }
 
+      tile.classList.remove("fire", "water", "plant", "earth");
       tile.classList.remove("special");
       tile.classList.remove("angel");
     }
@@ -106,6 +108,32 @@ export class Renderer {
       // console.log(tile);
       tile.classList.remove("locked");
       tile.classList.add("unlock");
+    }
+  }
+
+  updateElementCount(gameState) {
+    const ballCount = document.getElementById("ball");
+    const fireCount = document.getElementById("fire");
+    const waterCount = document.getElementById("water");
+    const plantCount = document.getElementById("plant");
+    const earthCount = document.getElementById("earth");
+
+    ballCount.textContent = gameState.hasBall || 0;
+    fireCount.textContent = gameState.getElementCount("fire") || 0;
+    waterCount.textContent = gameState.getElementCount("water") || 0;
+    plantCount.textContent = gameState.getElementCount("plant") || 0;
+    earthCount.textContent = gameState.getElementCount("earth") || 0;
+  }
+  elementTiles(board) {
+    // console.log(array);
+    for (let i = 1; i <= board.rows; i++) {
+      for (let j = 1; j <= board.cols; j++) {
+        const tile = this.boardElement.querySelector(
+          `.tile[data-row="${i}"][data-col="${j}"]`,
+        );
+        // console.log(tile);
+        tile.classList.add(board.matrix[i][j].element);
+      }
     }
   }
 }
