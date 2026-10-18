@@ -263,7 +263,7 @@ const level5 = {
   boss: {
     name: "Goudon",
     hp: 60,
-    shield: 40,
+    shield: 30,
     elementShield: elemntTypes[Math.floor(Math.random() * elemntTypes.length)],
     shieldReduction: 2,
     attack: 2,

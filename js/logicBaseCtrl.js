@@ -416,7 +416,7 @@ export function openLockedTiles(board, gameState, level) {
   return unlockResult;
 }
 
-export function attackBoss(element, gameState) {
+export function attackBoss(board, element, gameState) {
   //Kiểm tra khiên ? Phá khiên : dame boss;
   let boss = gameState.boss;
   let elementShield = boss.elementShield;
@@ -476,6 +476,9 @@ export function attackBoss(element, gameState) {
       gameState.updateQueueSkills(element, elementCount - 3);
       // Giam Boss Hp
       gameState.updateBossHp(boss.hp - 30);
+      if (boss.hp <= 50 && attack === 2) {
+        gameState.bossAttack(board, gameState.level);
+      }
       if (boss.hp <= 75 && shieldReduction === 2) {
         // Thay đổi khiên của boss
         const elemntTypes = ["fire", "water", "plant", "earth"];
@@ -486,8 +489,6 @@ export function attackBoss(element, gameState) {
         gameState.updateBossShield(150);
         gameState.updateBossShieldReduction(shieldReduction - 1);
         alert("Boss đã thay đổi khiên sang " + newElementShield);
-      } else if (boss.hp <= 50 && attack === 2) {
-        gameState.attackBoss(board, gameState.level);
       } else if (boss.hp <= 25 && shieldReduction === 1) {
         // Thay đổi khiên của boss
         const elemntTypes = ["fire", "water", "plant", "earth"];
