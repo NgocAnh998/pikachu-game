@@ -194,3 +194,7 @@
 .locked {
   background-color: rgba(58, 52, 52, 0.776);
 }
+.boss {
+  width: 200px;
+  height: 200px;
+}

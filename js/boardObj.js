@@ -295,7 +295,8 @@ export class Board {
     let tileIndex = 0;
     const walls = this.level.walls || [];
     const lockedTiles = this.level.lockedTiles || [];
-
+    const listEle = this.level.elemntTypes || [];
+    let elemntTileCounts = this.level.elemntTileCounts || 0;
     const totalPairs = walls
       ? (this.cols * this.rows - walls.length) / 2
       : (this.cols * this.rows) / 2;
@@ -303,20 +304,39 @@ export class Board {
       // Bắt đầu từ 1 là vì các pokemon được đánh số từ 1 đến 36, số 0 dùng làm giá trị event
       let iconId = (i % this.iconsCount) + 1;
 
-      tilesOD.push(
-        {
-          type: "pokemon",
-          id: iconId,
-          state: "unlock",
-          element: pokemonDefinitions[iconId]?.element || "normal",
-        },
-        {
-          type: "pokemon",
-          id: iconId,
-          state: "unlock",
-          element: pokemonDefinitions[iconId]?.element || "normal",
-        },
-      );
+      if (elemntTileCounts > 0) {
+        tilesOD.push(
+          {
+            type: "pokemon",
+            id: iconId,
+            state: "unlock",
+            element: listEle[iconId % listEle.length] || "normal",
+          },
+          {
+            type: "pokemon",
+            id: iconId,
+            state: "unlock",
+            element: listEle[iconId % listEle.length] || "normal",
+          },
+        );
+        elemntTileCounts--;
+        elemntTileCounts--;
+      } else {
+        tilesOD.push(
+          {
+            type: "pokemon",
+            id: iconId,
+            state: "unlock",
+            element: "normal",
+          },
+          {
+            type: "pokemon",
+            id: iconId,
+            state: "unlock",
+            element: "normal",
+          },
+        );
+      }
     }
     // console.log(pokemonDefinitions);
     // console.log(pokemonDefinitions[0]);

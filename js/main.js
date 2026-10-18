@@ -8,7 +8,7 @@ import { checkWin } from "./logicLevelCtrl.js";
 import { getLocationMatrix } from "./logicBaseCtrl.js";
 import { openLockedTiles } from "./logicBaseCtrl.js";
 // import { initElementForLevel4 } from "./logicLevelCtrl.js";
-import { kiemTraKetLoiLv4 } from "./logicBaseCtrl.js";
+// import { kiemTraKetLoiLv4 } from "./logicBaseCtrl.js";
 document.addEventListener("DOMContentLoaded", () => {
   const boardDOM = document.querySelector("#game-board");
   const refreshBtn = document.querySelector("#btn-refresh");
@@ -53,10 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderer = new Renderer(boardDOM);
   board.init();
   //level 4 khởi tạo những element pokemon đặc biệt
-  if (currentLevel.id === 4) {
+  if (currentLevel.id === 4 || currentLevel.id === 5) {
     // board.initElementForLevel4(currentLevel);
     renderer.updateElementCount(gameState);
   }
+  console.log(board.matrix);
   boardDOM.style.gridTemplateColumns = `repeat(${currentLevel.cols},40px)`;
   // console.log(board.matrix);
   renderer.renderBoard(board, (tile, r, c) => {
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(getLocationMatrix(board, gameState.specNum));
     renderer.specialTiles(getLocationMatrix(board, gameState.specNum));
   }
-  if (currentLevel.id === 4) {
+  if (currentLevel.id === 4 || currentLevel.id === 5) {
     renderer.elementTiles(board);
   }
 
@@ -203,263 +204,7 @@ function refresh(board, renderer, gameState) {
   board.refreshBoard(gameState);
   renderer.updateBoardValues(board);
   renderer.specialTiles(getLocationMatrix(board, gameState.specNum));
-  if (gameState.level.id === 4) {
+  if (gameState.level.id === 4 || gameState.level.id === 5) {
     renderer.elementTiles(board);
   }
 }
-
-// let ROWS = 8;
-// let COLS = 10;
-
-// let REAL_ROWS = ROWS + 2;
-// let REAL_COLS = COLS + 2;
-
-// let ICONS = [];
-// for (let i = 1; i <= 36; i++) {
-//   ICONS.push(i);
-// }
-
-// let tiles = [];
-// let tilesOD = [];
-
-// for (let i = 0; i < (ROWS * COLS) / 2; i++) {
-//   let x = i % ICONS.length;
-//   tilesOD.push(ICONS[x]);
-//   tilesOD.push(ICONS[x]);
-// }
-
-// let selectedTile = null;
-// let selectedData = null;
-
-// const directions = [
-//   [-1, 0], // 0: Lên
-//   [1, 0], // 1: Xuống
-//   [0, -1], // 2: Trái
-//   [0, 1], // 3: Phải
-// ];
-
-// let score = 0;
-
-// function buildBoard() {
-//   shuffle(tilesOD);
-//   // tiles = convert1Dto2D(tilesOD, ROWS, COLS);
-//   tiles = createPaddingBoard(tilesOD, ROWS, COLS);
-//   renderBoard(tiles);
-// }
-// // Gắn sự kiện cho nút Refresh
-// document.querySelector("#btn-refresh").addEventListener("click", function () {
-//   refreshBoard(tiles);
-// });
-
-// buildBoard();
-
-// function refreshBoard(board) {
-//   let remainingTiles = [];
-
-//   for (let r = 1; r <= ROWS; r++) {
-//     for (let c = 1; c <= COLS; c++) {
-//       if (board[r][c] !== "") {
-//         remainingTiles.push(board[r][c]);
-//       }
-//     }
-//   }
-
-//   if (remainingTiles.length === 0) return;
-
-//   shuffle(remainingTiles);
-
-//   let index = 0;
-//   for (let r = 1; r <= ROWS; r++) {
-//     for (let c = 1; c <= COLS; c++) {
-//       if (board[r][c] !== "") {
-//         board[r][c] = remainingTiles[index];
-//         index++;
-//       }
-//     }
-//   }
-
-//   const tilesDOM = document.querySelectorAll("#game-board .tile");
-//   tilesDOM.forEach((tile) => {
-//     const r = parseInt(tile.dataset.row);
-//     const c = parseInt(tile.dataset.col);
-
-//     tile.textContent = board[r][c];
-//   });
-
-//   console.log("Đã xáo lại bàn cờ!");
-// }
-
-// function createPaddingBoard(arr1D, rows, cols) {
-//   let board = [];
-//   for (let r = 0; r < REAL_ROWS; r++) {
-//     let row = [];
-//     for (let c = 0; c < REAL_COLS; c++) {
-//       if (r === 0 || r === REAL_ROWS - 1 || c === 0 || c === REAL_COLS - 1) {
-//         row.push("");
-//       } else {
-//         let index = (r - 1) * cols + (c - 1);
-//         row.push(arr1D[index]);
-//       }
-//     }
-//     board.push(row);
-//     console.log(row);
-//   }
-//   return board;
-// }
-
-// function checkPathBFS(p1, p2, board, ROWS, COLS) {
-//   const r1 = parseInt(p1.row),
-//     c1 = parseInt(p1.col);
-//   const r2 = parseInt(p2.row),
-//     c2 = parseInt(p2.col);
-
-//   if (board[r1][c1] !== board[r2][c2]) return false;
-//   if (r1 === r2 && c1 === c2) return false;
-
-//   let queue = [];
-//   let visited = [];
-
-//   for (let r = 0; r < REAL_ROWS; r++) {
-//     let row = [];
-//     for (let c = 0; c < REAL_COLS; c++) {
-//       row.push([Infinity, Infinity, Infinity, Infinity]);
-//     }
-//     visited.push(row);
-//   }
-
-//   queue.push({ r: r1, c: c1, dir: -1, turns: 0 });
-
-//   while (queue.length > 0) {
-//     const current = queue.shift();
-
-//     for (let i = 0; i < 4; i++) {
-//       const nextR = current.r + directions[i][0];
-//       const nextC = current.c + directions[i][1];
-
-//       // 1. Kiểm tra ranh giới
-//       if (nextR < 0 || nextR >= REAL_ROWS || nextC < 0 || nextC >= REAL_COLS)
-//         continue;
-
-//       // 2. Tính số lần rẽ
-//       let newTurns = current.turns;
-//       if (current.dir !== -1 && current.dir !== i) {
-//         newTurns++;
-//       }
-
-//       // 3. Vượt quá 2 lần rẽ (tối đa 3 đoạn thẳng) -> Bỏ qua
-//       if (newTurns > 2) continue;
-
-//       // 4. Đến ĐÍCH -> Thành công
-//       if (nextR === r2 && nextC === c2) {
-//         return true;
-//       }
-
-//       // 5. Gặp ô có vật cản -> Bỏ qua
-//       if (board[nextR][nextC] !== "") continue;
-
-//       // 6. Cập nhật visited và queue
-//       if (newTurns < visited[nextR][nextC][i]) {
-//         visited[nextR][nextC][i] = newTurns;
-//         queue.push({
-//           r: nextR,
-//           c: nextC,
-//           dir: i,
-//           turns: newTurns,
-//         });
-//       }
-//     }
-//   }
-
-//   return false;
-// }
-
-// function renderBoard(board) {
-//   const gameBoard = document.querySelector("#game-board");
-//   gameBoard.innerHTML = "";
-
-//   for (let row = 1; row <= ROWS; row++) {
-//     for (let col = 1; col <= COLS; col++) {
-//       const tile = document.createElement("div");
-//       tile.classList.add("tile");
-//       tile.textContent = board[row][col];
-
-//       tile.dataset.row = row;
-//       tile.dataset.col = col;
-
-//       tile.addEventListener("click", function () {
-//         handleTileClick(board, tile, row, col);
-//       });
-
-//       gameBoard.appendChild(tile);
-//     }
-//   }
-// }
-
-// function shuffle(array) {
-//   for (let i = array.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [array[i], array[j]] = [array[j], array[i]];
-//   }
-// }
-
-// function convert1Dto2D(arr1D, rows, cols) {
-//   let array2D = [];
-//   for (let i = 0; i < rows; i++) {
-//     let start = i * cols;
-//     let end = start + cols;
-//     array2D.push(arr1D.slice(start, end));
-//   }
-//   return array2D;
-// }
-
-// function handleTileClick(board, tile, r, c) {
-//   // Bỏ qua nếu click vào ô đã bị xóa
-//   if (board[r][c] === "") return;
-
-//   // 1. Click lại ô đang chọn -> Hủy chọn
-//   if (selectedData === tile) {
-//     tile.classList.remove("selected");
-//     selectedData = null;
-//     return;
-//   }
-
-//   // 2. LẦN CLICK ĐẦU TIÊN
-//   if (selectedData === null) {
-//     selectedData = tile;
-//     selectedData.classList.add("selected");
-//     console.log(
-//       "Lần 1 - " + r + ":" + c + "| Dataset : " + selectedData.dataset,
-//     );
-//   }
-//   // 3. LẦN CLICK THỨ HAII
-//   else {
-//     const checkPath = checkPathBFS(
-//       selectedData.dataset,
-//       tile.dataset,
-//       board,
-//       ROWS,
-//       COLS,
-//     );
-//     console.log("Lần 2 - " + r + ":" + c + "| Dataset : " + tile.dataset);
-
-//     if (checkPath) {
-//       const r1 = selectedData.dataset.row;
-//       const c1 = selectedData.dataset.col;
-
-//       // Khớp thành công: Xóa ô trên bàn cờ
-//       board[r1][c1] = "";
-//       board[r][c] = "";
-
-//       selectedData.classList.remove("selected");
-//       selectedData.classList.add("matched", "hind");
-//       tile.classList.add("matched", "hind");
-
-//       selectedData = null;
-//     } else {
-//       // Không khớp: Bỏ highlight ô cũ, chọn ô mới
-//       selectedData.classList.remove("selected");
-//       selectedData = tile;
-//       selectedData.classList.add("selected");
-//       console.log("Không khớp");
-//     }
-//   }
