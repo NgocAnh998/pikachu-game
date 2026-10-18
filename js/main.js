@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ? levelManager.getLevelIndex(playerData.currentLevel)
       : levelManager.getCurrentLevel();
 
+  const data = { currentLevel: 1 };
+  localStorage.setItem("playerData", JSON.stringify(data));
   // Khởi Tạo trang thái game
   const gameState = new GameState();
   gameState.updateRemainingTiles(currentLevel.cols * currentLevel.rows);
@@ -76,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (currentLevel.id === 4 || currentLevel.id === 5) {
     // board.initElementForLevel4(currentLevel);
     renderer.updateElementCount(gameState);
+  }
+  if (currentLevel.id === 5) {
     renderer.updateBossInfo(gameState);
   }
   console.log(board.matrix);
@@ -165,32 +169,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //skill
-  normalSkill.addEventListener("click", () => {
-    const dame = attackBoss(board, "normal", gameState);
-    updateEventSkill(renderer, gameState);
-    renderer.updateLock(board);
-  });
-  fireSkill.addEventListener("click", () => {
-    const dame = attackBoss(board, "fire", gameState);
-    updateEventSkill(renderer, gameState);
-    renderer.updateLock(board);
-  });
-  waterSkill.addEventListener("click", () => {
-    const dame = attackBoss(board, "water", gameState);
-    updateEventSkill(renderer, gameState);
-    renderer.updateLock(board);
-  });
-  plantSkill.addEventListener("click", () => {
-    const dame = attackBoss(board, "plant", gameState);
-    updateEventSkill(renderer, gameState);
-    renderer.updateLock(board);
-  });
-  earthSkill.addEventListener("click", () => {
-    const dame = attackBoss(board, "earth", gameState);
-    updateEventSkill(renderer, gameState);
-    renderer.updateLock(board);
-  });
-
+  if (currentLevel.id === 5) {
+    normalSkill.addEventListener("click", () => {
+      const dame = attackBoss(board, "normal", gameState);
+      updateEventSkill(renderer, gameState);
+      renderer.updateLock(board);
+    });
+    fireSkill.addEventListener("click", () => {
+      const dame = attackBoss(board, "fire", gameState);
+      updateEventSkill(renderer, gameState);
+      renderer.updateLock(board);
+    });
+    waterSkill.addEventListener("click", () => {
+      const dame = attackBoss(board, "water", gameState);
+      updateEventSkill(renderer, gameState);
+      renderer.updateLock(board);
+    });
+    plantSkill.addEventListener("click", () => {
+      const dame = attackBoss(board, "plant", gameState);
+      updateEventSkill(renderer, gameState);
+      renderer.updateLock(board);
+    });
+    earthSkill.addEventListener("click", () => {
+      const dame = attackBoss(board, "earth", gameState);
+      updateEventSkill(renderer, gameState);
+      renderer.updateLock(board);
+    });
+  }
   // levels
   level1.addEventListener("click", () => {
     // thay đổi html

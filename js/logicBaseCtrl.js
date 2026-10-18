@@ -356,6 +356,7 @@ export function openLockedTiles(board, gameState, level) {
   for (let i = 0; i < unlockKeyTiles.length; i++) {
     let isExist = false;
 
+    // Kiểm tra có tồn tại không
     for (let j = 0; j < gameState.unlockKeyTiles.length; j++) {
       if (unlockKeyTiles[i].id === gameState.unlockKeyTiles[j].id) {
         isExist = true;
@@ -367,7 +368,7 @@ export function openLockedTiles(board, gameState, level) {
       gameState.unlockKeyTiles.push(unlockKeyTiles[i]);
 
       let unlockQuantity = unlockKeyTiles[i].id;
-      let lockLocation = level.lockedTiles || [];
+      let lockLocation = level.lockedTiles || level.bossAttack || [];
       let from = 9 * (unlockQuantity - 1);
       let to = 9 * unlockQuantity;
       // console.log(from);
