@@ -259,11 +259,19 @@ const level5 = {
     { row: 8, col: 16 },
     { row: 9, col: 16 },
   ],
+  keyTiles: [
+    { id: 1, quantity: 2, unlock: 9 },
+    { id: 2, quantity: 2, unlock: 9 },
+    { id: 3, quantity: 4, unlock: 9 },
+    { id: 4, quantity: 4, unlock: 9 },
+    { id: 5, quantity: 2, unlock: 9 },
+    { id: 6, quantity: 2, unlock: 9 },
+  ],
 
   boss: {
     name: "Goudon",
     hp: 60,
-    shield: 30,
+    shield: 20,
     elementShield: elemntTypes[Math.floor(Math.random() * elemntTypes.length)],
     shieldReduction: 2,
     attack: 2,

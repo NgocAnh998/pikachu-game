@@ -158,4 +158,22 @@ export class Renderer {
       }
     }
   }
+  updateLock(board) {
+    const tiles = this.boardElement.querySelectorAll(".tile");
+    for (let i = 0; i < tiles.length; i++) {
+      const tile = tiles[i];
+
+      const r = parseInt(tile.dataset.row);
+      const c = parseInt(tile.dataset.col);
+
+      // Nếu ô đã bị xóa nhưng chưa gắn class hidden
+      if (board.matrix[r][c]?.state === "locked") {
+        tile.classList.add("locked");
+      }
+
+      // tile.classList.remove("fire", "water", "plant", "earth");
+      // tile.classList.remove("special");
+      // tile.classList.remove("angel");
+    }
+  }
 }

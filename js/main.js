@@ -168,22 +168,27 @@ document.addEventListener("DOMContentLoaded", () => {
   normalSkill.addEventListener("click", () => {
     const dame = attackBoss(board, "normal", gameState);
     updateEventSkill(renderer, gameState);
+    renderer.updateLock(board);
   });
   fireSkill.addEventListener("click", () => {
     const dame = attackBoss(board, "fire", gameState);
     updateEventSkill(renderer, gameState);
+    renderer.updateLock(board);
   });
   waterSkill.addEventListener("click", () => {
     const dame = attackBoss(board, "water", gameState);
     updateEventSkill(renderer, gameState);
+    renderer.updateLock(board);
   });
   plantSkill.addEventListener("click", () => {
     const dame = attackBoss(board, "plant", gameState);
     updateEventSkill(renderer, gameState);
+    renderer.updateLock(board);
   });
   earthSkill.addEventListener("click", () => {
     const dame = attackBoss(board, "earth", gameState);
     updateEventSkill(renderer, gameState);
+    renderer.updateLock(board);
   });
 
   // levels

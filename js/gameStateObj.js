@@ -125,12 +125,12 @@ export class GameState {
     this.boss.shieldReduction = newReduction;
   }
   bossAttack(board, level) {
-    if (level.walls && level.walls.length > 0) {
+    if (level.attackTiles && level.attackTiles.length > 0) {
       // Laay het  danh con lai
       let remainingTiles = [];
       for (let r = 1; r <= level.rows; r++) {
         for (let c = 1; c <= level.cols; c++) {
-          const tile = this.matrix[r][c];
+          const tile = board.matrix[r][c];
           if (tile?.type === "pokemon") {
             tile.state = "unlock";
             remainingTiles.push(tile);
@@ -141,9 +141,9 @@ export class GameState {
       //  Gan tro lai ban co cu
       // Điền lại mảng ở các chưa chọn cặp
       let index = 0;
-      const lockedTiles = this.level.attackTiles || [];
-      for (let r = 1; r <= this.level.rows; r++) {
-        for (let c = 1; c <= this.level.cols; c++) {
+      const lockedTiles = level.attackTiles || [];
+      for (let r = 1; r <= level.rows; r++) {
+        for (let c = 1; c <= level.cols; c++) {
           const tile = board.matrix[r][c];
           if (tile?.type === "pokemon") {
             // Dùng gameState để lấy ra danh sách đã unlock
@@ -156,7 +156,7 @@ export class GameState {
                 remainingTiles[index].state = "locked";
               }
             }
-            this.matrix[r][c] = remainingTiles[index];
+            board.matrix[r][c] = remainingTiles[index];
             index++;
           }
         }
