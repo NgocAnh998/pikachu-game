@@ -2,11 +2,13 @@ import { Board } from "./boardObj.js";
 import { GameState } from "./gameStateObj.js";
 import { Renderer } from "./rendererUi.js";
 import { LevelManager } from "./levelManagerObj.js";
+// import { Boss } from "./bossObj.js";
 import { handleTileClick } from "./inputCtrl.js";
 import { help } from "./logicBaseCtrl.js";
 import { checkWin } from "./logicLevelCtrl.js";
 import { getLocationMatrix } from "./logicBaseCtrl.js";
 import { openLockedTiles } from "./logicBaseCtrl.js";
+import { attackBoss } from "./logicBaseCtrl.js";
 // import { initElementForLevel4 } from "./logicLevelCtrl.js";
 // import { kiemTraKetLoiLv4 } from "./logicBaseCtrl.js";
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const level4 = document.querySelector("#level4");
   const level5 = document.querySelector("#level5");
   const level6 = document.querySelector("#level6");
+  let normalSkill = null;
+  let fireSkill = null;
+  let waterSkill = null;
+  let plantSkill = null;
+  let earthSkill = null;
 
   const score = document.querySelector("#score");
   const savedData = localStorage.getItem("playerData");
@@ -40,7 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
   gameState.updateRemainingTiles(currentLevel.cols * currentLevel.rows);
   gameState.updateSpecNum(currentLevel.specNum);
   gameState.updateLevel(currentLevel);
-  gameState.initElementCount(currentLevel);
+  if (currentLevel.id === 4) {
+    gameState.initElementCount(currentLevel);
+  }
+  if (currentLevel.id === 5) {
+    // const boss = new Boss();
+    // boss.initBoss(currentLevel.boss);
+    gameState.initSkill(currentLevel);
+    gameState.updateBoss(currentLevel.boss);
+    normalSkill = document.querySelector("#normal");
+    fireSkill = document.querySelector("#fire");
+    waterSkill = document.querySelector("#water");
+    plantSkill = document.querySelector("#plant");
+    earthSkill = document.querySelector("#earth");
+  }
   // console.log(gameState);
 
   // Khởi tạo bàn cờ
@@ -56,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (currentLevel.id === 4 || currentLevel.id === 5) {
     // board.initElementForLevel4(currentLevel);
     renderer.updateElementCount(gameState);
+    renderer.updateBossInfo(gameState);
   }
   console.log(board.matrix);
   boardDOM.style.gridTemplateColumns = `repeat(${currentLevel.cols},40px)`;
@@ -76,7 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderer.removeLock(unlockResult);
     //level 4
     // countElementForLevel4(board, currentLevel);
-    renderer.updateElementCount(gameState);
+    if (currentLevel.id === 4 || currentLevel.id === 5) {
+      renderer.updateElementCount(gameState);
+    }
 
     // Nếu không còn bất cứ nước đi nào thì trộn
     const hintPair = help(board);
@@ -98,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(getLocationMatrix(board, gameState.specNum));
     renderer.specialTiles(getLocationMatrix(board, gameState.specNum));
   }
+  // render pokemon nguyeen toos
   if (currentLevel.id === 4 || currentLevel.id === 5) {
     renderer.elementTiles(board);
   }
@@ -138,6 +162,28 @@ document.addEventListener("DOMContentLoaded", () => {
         // renderer.updateBoardValues(board);
       }
     }
+  });
+
+  //skill
+  normalSkill.addEventListener("click", () => {
+    const dame = attackBoss("normal", gameState);
+    updateEventSkill(board, renderer, gameState);
+  });
+  fireSkill.addEventListener("click", () => {
+    const dame = attackBoss("fire", gameState);
+    updateEventSkill(board, renderer, gameState);
+  });
+  waterSkill.addEventListener("click", () => {
+    const dame = attackBoss("water", gameState);
+    updateEventSkill(board, renderer, gameState);
+  });
+  plantSkill.addEventListener("click", () => {
+    const dame = attackBoss("plant", gameState);
+    updateEventSkill(board, renderer, gameState);
+  });
+  earthSkill.addEventListener("click", () => {
+    const dame = attackBoss("earth", gameState);
+    updateEventSkill(board, renderer, gameState);
   });
 
   // levels
@@ -207,4 +253,9 @@ function refresh(board, renderer, gameState) {
   if (gameState.level.id === 4 || gameState.level.id === 5) {
     renderer.elementTiles(board);
   }
+}
+
+function updateEventSkill(renderer, gameState) {
+  renderer.updateBossInfo(gameState);
+  renderer.updateElementCount(gameState);
 }

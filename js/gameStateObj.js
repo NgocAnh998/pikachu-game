@@ -1,4 +1,6 @@
 // js/game-state.js
+const elemntTypes = ["fire", "water", "plant", "earth"];
+
 export class GameState {
   constructor() {
     this.selectedTile = null; //  element, row, col
@@ -13,6 +15,12 @@ export class GameState {
     this.level = null;
     this.hasElement = [];
     this.hasBall = 0;
+    //level 5
+    this.queueSkills = [];
+    this.limitSkillCount = 3;
+    this.queueRefresh = 0;
+    this.queueRecovery = 0;
+    this.boss = null;
   }
 
   resetSelection() {
@@ -36,20 +44,24 @@ export class GameState {
   updateLevel(level) {
     this.level = level;
   }
+  updateBoss(boss) {
+    this.boss = boss;
+  }
   initElementCount(level) {
     const elementTypes = level.elemntTypes || [];
     for (let i = 0; i < elementTypes.length; i++) {
       this.hasElement.push({ element: elementTypes[i], count: 0 });
     }
+    this.hasElement.push({ element: "normal", count: 0 });
     this.hasBall = level.ballCount || 0;
     // console.log(this.hasElement);
   }
   getElementCount(elementType) {
     for (let i = 0; i < this.hasElement.length; i++) {
       if (this.hasElement[i].element === elementType) {
-        console.log(
-          "Gia tri cua " + elementType + ": " + this.hasElement[i].count,
-        );
+        // console.log(
+        //   "Gia tri cua " + elementType + ": " + this.hasElement[i].count,
+        // );
         return this.hasElement[i].count;
       }
     }
@@ -68,5 +80,87 @@ export class GameState {
       element: el.element,
       count: el.count,
     }));
+  }
+  initSkill(level) {
+    const elementTypes = level.elemntTypes || [];
+    for (let i = 0; i < elementTypes.length; i++) {
+      this.queueSkills.push({ element: elementTypes[i], count: 0 });
+    }
+    this.queueSkills.push({ element: "normal", count: 0 });
+    console.log(this.queueSkills);
+    // this.hasBall = level.ballCount || 0;
+  }
+  getQueueSkills(name) {
+    for (let i = 0; i < this.queueSkills.length; i++) {
+      if (this.queueSkills[i]?.element === name) {
+        return this.queueSkills[i];
+      }
+    }
+  }
+  updateQueueSkills(element, count) {
+    for (let i = 0; i < this.queueSkills.length; i++) {
+      if (this.queueSkills[i].element === element) {
+        this.queueSkills[i].count = count;
+        return;
+      }
+    }
+  }
+  getLevel() {
+    return this.level;
+  }
+  getElementList() {
+    return elemntTypes;
+  }
+
+  updateBossHp(newHp) {
+    this.boss.hp = newHp;
+  }
+  updateBossShield(newShield) {
+    this.boss.shield = newShield;
+  }
+  updateBossElementShield(newElement) {
+    this.boss.elementShield = newElement;
+  }
+  updateBossShieldReduction(newReduction) {
+    this.boss.shieldReduction = newReduction;
+  }
+  bossAttack(board, level) {
+    if (level.walls && level.walls.length > 0) {
+      // Laay het  danh con lai
+      let remainingTiles = [];
+      for (let r = 1; r <= level.rows; r++) {
+        for (let c = 1; c <= level.cols; c++) {
+          const tile = this.matrix[r][c];
+          if (tile?.type === "pokemon") {
+            tile.state = "unlock";
+            remainingTiles.push(tile);
+          }
+        }
+      }
+      // Theem thuoc tinh lock cho cac tiles
+      //  Gan tro lai ban co cu
+      // Điền lại mảng ở các chưa chọn cặp
+      let index = 0;
+      const lockedTiles = this.level.attackTiles || [];
+      for (let r = 1; r <= this.level.rows; r++) {
+        for (let c = 1; c <= this.level.cols; c++) {
+          const tile = board.matrix[r][c];
+          if (tile?.type === "pokemon") {
+            // Dùng gameState để lấy ra danh sách đã unlock
+            let unlock = board.oNayDaMoChua(r, c, this.unlockTiles);
+
+            //
+            let locked = board.checkLockedTaiViTriChiDinh(r, c, lockedTiles);
+            if (locked) {
+              if (!unlock) {
+                remainingTiles[index].state = "locked";
+              }
+            }
+            this.matrix[r][c] = remainingTiles[index];
+            index++;
+          }
+        }
+      }
+    }
   }
 }

@@ -1,3 +1,4 @@
+const elemntTypes = ["fire", "water", "plant", "earth"];
 const level1 = {
   id: 1,
   name: "Mầm Non",
@@ -111,15 +112,13 @@ const level3 = {
   ],
 };
 
-// Bạn phải dùng bóng để nối 2 pokemon có thuộc tính, khi hết bóng bạn chỉ có thể phá ô pokemon
-// có thuộc tính bằng chính những pokemon bạn thu thập được
 const level4 = {
   id: 4,
   name: "Trưởng Thành",
   rows: 9,
   cols: 16,
   elemntTypes: ["fire", "water", "plant", "earth"],
-  elemntTileCounts: 46,
+  elemntTileCounts: 96,
   ballCount: 6,
   // keyTiles: [
   //   { id: 1, quantity: 2, unlock: 9 },
@@ -197,8 +196,78 @@ const level5 = {
   rows: 12,
   cols: 18,
   elemntTypes: ["fire", "water", "plant", "earth"],
-  elemntTileCounts: 46,
+  elemntTileCounts: 144,
   ballCount: 0,
+  attackTiles: [
+    // walls: [
+    { row: 1, col: 1 },
+    { row: 2, col: 1 },
+    { row: 3, col: 1 },
+    { row: 1, col: 2 },
+    { row: 2, col: 2 },
+    { row: 3, col: 2 },
+    { row: 1, col: 3 },
+    { row: 2, col: 3 },
+    { row: 3, col: 3 },
+
+    { row: 1, col: 14 },
+    { row: 2, col: 14 },
+    { row: 3, col: 14 },
+    { row: 1, col: 15 },
+    { row: 2, col: 15 },
+    { row: 3, col: 15 },
+    { row: 1, col: 16 },
+    { row: 2, col: 16 },
+    { row: 3, col: 16 },
+
+    { row: 4, col: 6 },
+    { row: 5, col: 6 },
+    { row: 6, col: 6 },
+    { row: 4, col: 7 },
+    { row: 5, col: 7 },
+    { row: 6, col: 7 },
+    { row: 4, col: 8 },
+    { row: 5, col: 8 },
+    { row: 6, col: 8 },
+    { row: 4, col: 9 },
+    { row: 5, col: 9 },
+    { row: 6, col: 9 },
+    { row: 4, col: 10 },
+    { row: 5, col: 10 },
+    { row: 6, col: 10 },
+    { row: 4, col: 11 },
+    { row: 5, col: 11 },
+    { row: 6, col: 11 },
+
+    { row: 7, col: 1 },
+    { row: 8, col: 1 },
+    { row: 9, col: 1 },
+    { row: 7, col: 2 },
+    { row: 8, col: 2 },
+    { row: 9, col: 2 },
+    { row: 7, col: 3 },
+    { row: 8, col: 3 },
+    { row: 9, col: 3 },
+
+    { row: 7, col: 14 },
+    { row: 8, col: 14 },
+    { row: 9, col: 14 },
+    { row: 7, col: 15 },
+    { row: 8, col: 15 },
+    { row: 9, col: 15 },
+    { row: 7, col: 16 },
+    { row: 8, col: 16 },
+    { row: 9, col: 16 },
+  ],
+
+  boss: {
+    name: "Goudon",
+    hp: 60,
+    shield: 40,
+    elementShield: elemntTypes[Math.floor(Math.random() * elemntTypes.length)],
+    shieldReduction: 2,
+    attack: 2,
+  },
 };
 const level6 = {
   id: 6,
@@ -224,5 +293,8 @@ export class LevelManager {
   }
   getLevelIndex(level) {
     return this.levels[level - 1];
+  }
+  getElementList() {
+    return elemntTypes;
   }
 }

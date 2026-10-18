@@ -1,7 +1,7 @@
 // js/input.js
 import { kiemTraKetLoi } from "./logicBaseCtrl.js";
 import { openLockedTiles } from "./logicBaseCtrl.js";
-import { kiemTraKetLoiLv4 } from "./logicBaseCtrl.js";
+// import { kiemTraKetLoiLv4 } from "./logicBaseCtrl.js";
 
 export function handleTileClick(tile, r, c, board, gameState, renderer, score) {
   if (board.matrix[r][c]?.type !== "pokemon") return;
@@ -22,11 +22,11 @@ export function handleTileClick(tile, r, c, board, gameState, renderer, score) {
     const firstTile = gameState.selectedTile.element;
     tile.classList.add("selected");
     let success = false;
-    if (gameState.level.id === 4) {
-      success = kiemTraKetLoiLv4(firstTile, tile, board, gameState);
-    } else {
-      success = kiemTraKetLoi(firstTile, tile, board);
-    }
+    // if (gameState.level.id === 4) {
+    success = kiemTraKetLoi(firstTile, tile, board, gameState);
+    // } else {
+    //   success = kiemTraKetLoi(firstTile, tile, board);
+    // }
     // console.log(success);
     if (success) {
       renderer.markMatched(firstTile, tile);

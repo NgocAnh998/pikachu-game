@@ -113,16 +113,38 @@ export class Renderer {
 
   updateElementCount(gameState) {
     const ballCount = document.getElementById("ball");
+    const normalCount = document.getElementById("normal");
     const fireCount = document.getElementById("fire");
     const waterCount = document.getElementById("water");
     const plantCount = document.getElementById("plant");
     const earthCount = document.getElementById("earth");
 
-    ballCount.textContent = gameState.hasBall || 0;
-    fireCount.textContent = gameState.getElementCount("fire") || 0;
-    waterCount.textContent = gameState.getElementCount("water") || 0;
-    plantCount.textContent = gameState.getElementCount("plant") || 0;
-    earthCount.textContent = gameState.getElementCount("earth") || 0;
+    if (gameState.level.id === 4) {
+      ballCount.textContent = gameState.hasBall || 0;
+      fireCount.textContent = gameState.getElementCount("fire") || 0;
+      waterCount.textContent = gameState.getElementCount("water") || 0;
+      plantCount.textContent = gameState.getElementCount("plant") || 0;
+      earthCount.textContent = gameState.getElementCount("earth") || 0;
+    }
+    if (gameState.level.id === 5) {
+      normalCount.textContent = gameState.getQueueSkills("normal")?.count || 0;
+      fireCount.textContent = gameState.getQueueSkills("fire")?.count || 0;
+      waterCount.textContent = gameState.getQueueSkills("water")?.count || 0;
+      plantCount.textContent = gameState.getQueueSkills("plant")?.count || 0;
+      earthCount.textContent = gameState.getQueueSkills("earth")?.count || 0;
+    }
+  }
+  updateBossInfo(gameState) {
+    const name = document.getElementById("name");
+    const hp = document.getElementById("hp");
+    const shield = document.getElementById("shield");
+    const elementShield = document.getElementById("elementShield");
+
+    const boss = gameState.boss;
+    name.textContent = boss.name;
+    hp.textContent = boss.hp;
+    shield.textContent = boss.shield;
+    elementShield.textContent = boss.elementShield;
   }
   elementTiles(board) {
     // console.log(array);
